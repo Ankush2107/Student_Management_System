@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Current = require('../models/current.model.js');
+const CurrentDetail = require('../models/current.model.js');
 const calculateFees = require('../calculateFees.js');
 router.get('/getStudents', async (req, res) => {
   try {
-    const currentStudents = await Current.find();
+    const currentStudents = await CurrentDetail.find();
     res.status(200).json(currentStudents);
   } catch (error) {
     console.error(error);
@@ -21,7 +21,7 @@ router.post('/currentStudent', async (req, res) => {
     }
 
     try {
-      const createCurrent = await Current.create({
+      const createCurrent = await CurrentDetail.create({
         name, 
         currentClass, 
         currentSession, 
@@ -54,7 +54,7 @@ router.put('/promote/:id', async (req, res) => {
       return res.status(400).json({ error: 'Invalid class or session' });
     }
 
-    const currentStudent = await Current.findOne({ _id: id, name: name });
+    const currentStudent = await CurrentDetail.findOne({ _id: id, name: name });
 
     if (!currentStudent) {
       return res.status(404).json({ error: 'Student not found' });
@@ -66,7 +66,7 @@ router.put('/promote/:id', async (req, res) => {
       currentStudent.currentFees
     );
     
-    const updatedStudent = await Current.findByIdAndUpdate(
+    const updatedStudent = await CurrentDetail.findByIdAndUpdate(
       { _id: id },
       { currentClass: parseInt(newClass), currentSession: parseInt(newSession), currentFees: newFees },
       { new: true }

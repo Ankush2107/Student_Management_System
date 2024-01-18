@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // MongoDB schema and model
-const currentClassSchema = new mongoose.Schema({
+const currentDetailSchema = new mongoose.Schema({
     name: { 
         type: String, 
         required: true 
@@ -23,5 +23,5 @@ const currentClassSchema = new mongoose.Schema({
     },
 });
   
-const Current = mongoose.model('Current', currentClassSchema);
-module.exports = Current;
+const CurrentDetail = mongoose.model('Current', currentDetailSchema);
+module.exports = CurrentDetail;
