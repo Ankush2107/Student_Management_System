@@ -1,0 +1,12 @@
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.allfields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20vw;
+}
