@@ -21,10 +21,10 @@ This application allows you to manage student promotions, promoting students to 
 
 ### Project Structure
 
-- `src/App.jsx`: Main application component rendering `StudentTable` and `PromotionForm`.
-- `src/components/PromotionForm.jsx`: Form component for promoting students.
-- `src/components/StudentsTable.jsx`: Table component displaying current student data.
-- `src/components/*.css`: Styling files for components.
+- `src/App.jsx`: Main application pages rendering `StudentTable` and `PromotionForm`.
+- `src/pages/PromotionForm.jsx`: Form pages for promoting students.
+- `src/pages/StudentsTable.jsx`: Table pages displaying current student data.
+- `src/psges/*.css`: Styling files for pages.
 
 ### Setup
 1. Install dependencies: `npm install`
