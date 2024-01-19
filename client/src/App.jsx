@@ -5,15 +5,14 @@ import './App.css'
 
 const App = () => {
   return (
-    <div className='allfields'>
-      <div>
-        <StudentTable />
+      <div className='allfields'>
+        <div>
+          <StudentTable />
+        </div>
+        <div>
+          <PromotionForm />
+        </div>
       </div>
-      <div>
-        <PromotionForm />
-      </div>
-      
-    </div>
   );
 };
 
