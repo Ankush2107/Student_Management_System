@@ -1,68 +1,84 @@
-import './PromotionForm.css'
+import './PromotionForm.css';
 import { useState } from 'react';
 
 const PromotionForm = () => {
-  
-  const [studentId, setStudentId] = useState('');
-  const [name, setName] = useState('');
+  const [currentClass, setCurrentClass] = useState('');
+  const [currentSession, setCurrentSession] = useState('');
+  const [currentFees, setCurrentFees] = useState('');
   const [newClass, setNewClass] = useState('');
   const [newSession, setNewSession] = useState('');
+  const [newFees, setNewFees] = useState('');
   const [generatedFees, setGeneratedFees] = useState('');
 
   const handleGenerateFees = () => {
-    
     try {
-      if (!studentId || !name || !newClass || !newSession) {
+      if (!currentClass || !currentSession || !currentFees || !newClass || !newSession) {
         console.error('Please fill in all fields before generating fees.');
         return;
       }
 
-      if (isNaN(newClass) || isNaN(newSession)) {
-        console.error('Please enter valid numeric values for New Class and New Session.');
+      if (isNaN(currentClass) || isNaN(currentSession) || isNaN(currentFees) || isNaN(newClass) || isNaN(newSession)) {
+        console.error('Please enter valid numeric values for all fields.');
         return;
       }
 
-      fetch(`http://localhost:5001/students/promote/${studentId}`, { method: 'PUT',
+      // Call the API to generate fees for the specified student
+      fetch(`http://localhost:5001/students/promoteBatch/${currentClass}/${currentSession}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ studentId, name, newClass, newSession }),
+        body: JSON.stringify({ currentClass, currentSession, currentFees, newClass, newSession }),
       })
-      .then((response) => response.json())
-      .then((data) => {
-        if (!data || !data.currentFees) {
-          console.error('Invalid API response:', data);
-          return;
-        }
-        console.log('Fees generated successfully:', data);
-        setGeneratedFees(data.currentFees);
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data || !data.updatedStudents || data.updatedStudents.length === 0) {
+            console.error('Invalid API response:', data);
+            return;
+          }
 
-        clearFields();
-      })
-      .catch((error) => console.error('Error generating fees:', error));
+          console.log('Batch promotion successful:', data.updatedStudents);
+
+          // Set the generated fees for display
+          setGeneratedFees('Generated Fees: ' + data.updatedStudents[0].currentFees);
+
+          // Optionally, you can update the UI to reflect the changes
+          // (e.g., update the StudentTable component)
+
+          clearFields();
+        })
+        .catch((error) => console.error('Error promoting batch:', error));
     } catch (error) {
-      console.error('Error promoting student:', error.message);
+      console.error('Error promoting batch:', error.message);
     }
   };
 
   const clearFields = () => {
-    setStudentId('');
-    setName('');
+    setCurrentClass('');
+    setCurrentSession('');
+    setCurrentFees('');
     setNewClass('');
     setNewSession('');
+    setNewFees('');
   };
 
   return (
     <div>
       <div className='inputFrom'>
-        <h2>Promotion Form</h2>
+        <h2>Batch Promotion Form</h2>
         <label className='field'>
-          StudentId:
-          <input type="text" value={studentId} onChange={(e) => setStudentId(e.target.value)} />
+          Current Class:
+          <input type="text" value={currentClass} onChange={(e) => setCurrentClass(e.target.value)} />
         </label>
+        <br />
         <label className='field'>
-          Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          Current Session:
+          <input type="text" value={currentSession} onChange={(e) => setCurrentSession(e.target.value)} />
+        </label>
+        <br />
+        <label className='field'>
+          Current Fees:
+          <input type="text" value={currentFees} onChange={(e) => setCurrentFees(e.target.value)} />
         </label>
         <br />
         <label className='field'>
@@ -75,13 +91,12 @@ const PromotionForm = () => {
           <input type="text" value={newSession} onChange={(e) => setNewSession(e.target.value)} />
         </label>
         <br />
-        <button onClick={handleGenerateFees} >Generate Fees</button>
+        <button onClick={handleGenerateFees}>Generate Fees</button>
       </div>
       <div className='generatedFees'>
-        {generatedFees && <p>Generated Fees: {generatedFees}</p>}
+        {generatedFees && <p>{generatedFees}</p>}
       </div>
     </div>
-
   );
 };
 
