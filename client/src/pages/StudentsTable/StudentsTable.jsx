@@ -5,7 +5,7 @@ const StudentTable = () => {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5001/students/getStudents')
+    fetch('http://localhost:5000/students/getStudents')
       .then((response) => (response.json()))
       .then((data) => setStudents(data))
       .catch((error) => console.error('Error fetching students:', error));

@@ -23,7 +23,7 @@ const PromotionForm = () => {
       }
 
       // Call the API to generate fees for the specified student
-      fetch(`http://localhost:5001/students/promoteBatch/${currentClass}/${currentSession}`, {
+      fetch(`http://localhost:5000/students/promoteBatch/${currentClass}/${currentSession}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
