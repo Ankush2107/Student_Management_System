@@ -1,44 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const CurrentDetail = require('../models/current.model.js');
 const calculateFees = require('../calculateFees.js');
-router.get('/getStudents', async (req, res) => {
-  try {
-    const currentStudents = await CurrentDetail.find();
-    res.status(200).json(currentStudents);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({error: 'Something went wrong'})
-  }
-    
-})
+const { getStudents, createStudent } = require('../controllers/student.controller.js');
 
-router.post('/currentStudent', async (req, res) => {
-    const { name, currentClass, currentSession, currentFees } = req.body;
-    
-    if( !name || !currentClass || !currentSession || !currentFees ) {
-      res.status(400).json({ error: 'Please provide all fields' });
-    }
+router.get('/', getStudents)
 
-    try {
-      const createCurrent = await CurrentDetail.create({
-        name, 
-        currentClass, 
-        currentSession, 
-        currentFees
-      })
-  
-      if(!createCurrent) {
-        return res.status(404).json({ error: 'Failed to add all fields' });
-      }
+router.get('/:id', getStudents)
 
-      res.status(200).json({ success: 'Current data of student is created successfully' });
-    }
-    catch (error){
-      console.error(error);
-      return res.status(500).json({ error: 'Something went wrong' });
-    }
-})
+router.post('/', createStudent)
 
 // router.put('/promote/:id', async (req, res) => {
 //   try {

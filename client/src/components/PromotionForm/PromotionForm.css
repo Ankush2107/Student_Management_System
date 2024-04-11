@@ -1,0 +1,23 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+input {
+    padding: 0.4rem;
+
+}
+.btn {
+    margin-top: 1.2rem;
+}
+.btn > button {
+    padding: 0.7rem 1rem;
+    border-radius: 15px;
+    border: none;
+}
+
+.btn > button:hover {
+    background-color: #212020;
+    color: white;
+    cursor: pointer;
+}

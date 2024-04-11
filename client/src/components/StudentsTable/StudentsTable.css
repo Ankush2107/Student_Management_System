@@ -15,3 +15,10 @@ tbody, tr, td {
     text-align: center;
     padding: 10px;
 }
+
+.student-table-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15rem;
+    
+}

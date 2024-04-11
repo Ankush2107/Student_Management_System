@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // MongoDB schema and model
-const currentDetailSchema = new mongoose.Schema({
+const studentsSchema = new mongoose.Schema({
     name: { 
         type: String, 
         required: true 
@@ -23,5 +23,5 @@ const currentDetailSchema = new mongoose.Schema({
     },
 });
   
-const CurrentDetail = mongoose.model('Current', currentDetailSchema);
-module.exports = CurrentDetail;
+module.exports  = mongoose.model('Students', studentsSchema);
+ 

@@ -13,12 +13,6 @@ This application allows you to manage student promotions, promoting students to 
 
 ## Client Side
 
-### Technologies Used
-- [React](https://reactjs.org/) - JavaScript library for building user interfaces
-- [Vite](https://vitejs.dev/) - Frontend build tool
-- [Bootstrap](https://getbootstrap.com/) - CSS framework
-- [Sass](https://sass-lang.com/) - CSS preprocessor
-
 ### Project Structure
 
 - `src/App.jsx`: Main application pages rendering `StudentTable` and `PromotionForm`.
